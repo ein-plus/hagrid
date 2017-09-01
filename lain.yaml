@@ -1,7 +1,7 @@
 appname: hagrid
 
 build:
-    base: laincloud/centos-lain:20170217
+    base: laincloud/centos-lain:20170405
     prepare:
         version: 6
         script:
@@ -24,26 +24,3 @@ web:
     memory: 64m
     secret_files:
         - hagrid.conf.json
-
-web.icinga:
-    image: laincloud/centos-lain-icinga2:20170310
-    memory: 256M
-    cmd: ./run_icinga.sh
-    port: 80
-    mountpoint:
-        - icinga.lain.local
-    https_only: true
-    stateful: true
-    secret_files:
-        - /etc/icinga2/features-available/ido-mysql.conf
-        - /etc/icinga2/scripts/util.sh
-        - /etc/icingaweb2/resources.ini
-    persistent_dirs:
-        - /var/lib/icinga2
-    logs:
-        - icingaweb2.log
-
-
-use_services:
-    mysql-service:
-        - mysql-master
